@@ -1,0 +1,280 @@
+[
+    {
+        "id": "aef84ada788b06ad",
+        "type": "tab",
+        "label": "Flow 1",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "28d8ddd5c1186d76",
+        "type": "arduino in",
+        "z": "aef84ada788b06ad",
+        "name": "Sensor",
+        "pin": "0",
+        "state": "ANALOG",
+        "arduino": "811d18e79d53cbec",
+        "x": 310,
+        "y": 360,
+        "wires": [
+            [
+                "d544f58f33e68811",
+                "b89d1bbc420cb93a",
+                "237f1d541fa21dc6"
+            ]
+        ]
+    },
+    {
+        "id": "a2f9c56fac6cfdaa",
+        "type": "rpi-gpio out",
+        "z": "aef84ada788b06ad",
+        "name": "",
+        "pin": "37",
+        "set": "",
+        "level": "0",
+        "freq": "100",
+        "out": "pwm",
+        "x": 1100,
+        "y": 260,
+        "wires": []
+    },
+    {
+        "id": "d544f58f33e68811",
+        "type": "function",
+        "z": "aef84ada788b06ad",
+        "name": "check humidity",
+        "func": "let sensor = msg.payload\n\nif( sensor <= 350 ) { msg.payload = 0 } \nelse {\n    msg.payload = global.get(\"speed\") !== undefined ? global.get(\"speed\") : 100 }\nreturn msg;\n\n//global.set(\"speed\",50)",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 650,
+        "y": 360,
+        "wires": [
+            [
+                "a2f9c56fac6cfdaa"
+            ]
+        ]
+    },
+    {
+        "id": "b89d1bbc420cb93a",
+        "type": "debug",
+        "z": "aef84ada788b06ad",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 620,
+        "y": 480,
+        "wires": []
+    },
+    {
+        "id": "fe9189989c7f4ac5",
+        "type": "inject",
+        "z": "aef84ada788b06ad",
+        "name": "Speed setter: 50",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payloadType": "date",
+        "x": 240,
+        "y": 140,
+        "wires": [
+            [
+                "8c735374f2253625"
+            ]
+        ]
+    },
+    {
+        "id": "8c735374f2253625",
+        "type": "function",
+        "z": "aef84ada788b06ad",
+        "name": "",
+        "func": "global.set(\"speed\",50)",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 430,
+        "y": 140,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "de7695842c990931",
+        "type": "inject",
+        "z": "aef84ada788b06ad",
+        "name": "Speed setter: 25",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payloadType": "date",
+        "x": 240,
+        "y": 80,
+        "wires": [
+            [
+                "fc4d92c0068637be"
+            ]
+        ]
+    },
+    {
+        "id": "fc4d92c0068637be",
+        "type": "function",
+        "z": "aef84ada788b06ad",
+        "name": "",
+        "func": "global.set(\"speed\",25)",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 430,
+        "y": 80,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "5526b26d0d20b24b",
+        "type": "inject",
+        "z": "aef84ada788b06ad",
+        "name": "Speed setter: 75",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payloadType": "date",
+        "x": 240,
+        "y": 200,
+        "wires": [
+            [
+                "6ee68fcf9d21e30e"
+            ]
+        ]
+    },
+    {
+        "id": "6ee68fcf9d21e30e",
+        "type": "function",
+        "z": "aef84ada788b06ad",
+        "name": "",
+        "func": "global.set(\"speed\",75)",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 430,
+        "y": 200,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "05ae7503ce9f10db",
+        "type": "mqtt in",
+        "z": "aef84ada788b06ad",
+        "name": "",
+        "topic": "vadelma",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "2c1e6a01ce308fec",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "x": 760,
+        "y": 260,
+        "wires": [
+            [
+                "a2f9c56fac6cfdaa"
+            ]
+        ]
+    },
+    {
+        "id": "237f1d541fa21dc6",
+        "type": "mqtt out",
+        "z": "aef84ada788b06ad",
+        "name": "",
+        "topic": "moisture",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "2c1e6a01ce308fec",
+        "x": 600,
+        "y": 260,
+        "wires": []
+    },
+    {
+        "id": "811d18e79d53cbec",
+        "type": "arduino-board",
+        "device": "/dev/ttyUSB0"
+    },
+    {
+        "id": "2c1e6a01ce308fec",
+        "type": "mqtt-broker",
+        "name": "",
+        "broker": "192.168.45.172",
+        "port": "1883",
+        "clientid": "",
+        "usetls": false,
+        "protocolVersion": "4",
+        "keepalive": "60",
+        "cleansession": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": "",
+        "willMsg": {},
+        "sessionExpiry": ""
+    }
+]
